@@ -1,0 +1,38 @@
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(15)
+);
+CREATE TABLE Books (
+    book_id INT PRIMARY KEY,
+    title VARCHAR(150),
+    author VARCHAR(100),
+    publisher VARCHAR(100),
+    isbn VARCHAR(20) UNIQUE
+);
+CREATE TABLE Librarians (
+    librarian_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE
+);
+CREATE TABLE IssuedBooks (
+    issue_id INT PRIMARY KEY,
+    user_id INT,
+    book_id INT,
+    issue_date DATE,
+    due_date DATE,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
+CREATE TABLE ReturnedBooks (
+    return_id INT PRIMARY KEY,
+    issue_id INT,
+    return_date DATE,
+    fine DECIMAL(6,2),
+    FOREIGN KEY (issue_id) REFERENCES IssuedBooks(issue_id)
+);
+CREATE TABLE BookCategories (
+    category_id INT PRIMARY KEY,
+    category_name VARCHAR(50)
+);
